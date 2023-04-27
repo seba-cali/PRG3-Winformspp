@@ -24,6 +24,7 @@ namespace ej_ado_net_pkm
 						PokemonNegocio	negocio = new PokemonNegocio();
 						listaPokemon = negocio.listar();
 						dgvPokemons.DataSource = listaPokemon;
+						dgvPokemons.Columns["UrlImagen"].Visible = false;//oculta la url de la imagen
 					 cargarImagen(listaPokemon[0].UrlImagen);
 				}
 
@@ -31,6 +32,7 @@ namespace ej_ado_net_pkm
 				{
 						Pokemon seleccionado=(Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
 						cargarImagen(seleccionado.UrlImagen);
+
 				}
 
 				private void cargarImagen(string imagen)
