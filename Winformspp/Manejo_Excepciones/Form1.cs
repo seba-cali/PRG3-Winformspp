@@ -20,9 +20,26 @@ namespace Manejo_Excepciones
 				private void btnCalcular_Click(object sender, EventArgs e)
 				{
 						int a, b, r;
-						a = int.Parse(txtNumero1.Text);
-						b = int.Parse(txtNumero2.Text);
-						r = a + b;
+						try
+						{
+								a = int.Parse(txtNumero1.Text);
+								b = int.Parse(txtNumero2.Text);
+								r = a / b;
+								lblResultado.Text = "= " + r;
+						}
+						catch (FormatException ex)//aca decidimos que hacer
+						{
+								MessageBox.Show("Por favor, cargar solo numeros.");
+								//throw;
+						}
+						catch (DivideByZeroException ex)
+						{
+								MessageBox.Show("No se puede dividir por cero.");
+						}
+						catch (Exception ex)
+						{
+								MessageBox.Show("Error: " + ex.Message);//error generico
+						}
 				}
 		}
 }

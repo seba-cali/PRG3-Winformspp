@@ -31,6 +31,7 @@
 						this.txtNumero1 = new System.Windows.Forms.TextBox();
 						this.txtNumero2 = new System.Windows.Forms.TextBox();
 						this.btnCalcular = new System.Windows.Forms.Button();
+						this.lblResultado = new System.Windows.Forms.Label();
 						this.SuspendLayout();
 						// 
 						// txtNumero1
@@ -57,15 +58,26 @@
 						this.btnCalcular.UseVisualStyleBackColor = true;
 						this.btnCalcular.Click += new System.EventHandler(this.btnCalcular_Click);
 						// 
+						// lblResultado
+						// 
+						this.lblResultado.AutoSize = true;
+						this.lblResultado.Location = new System.Drawing.Point(191, 267);
+						this.lblResultado.Name = "lblResultado";
+						this.lblResultado.Size = new System.Drawing.Size(14, 16);
+						this.lblResultado.TabIndex = 3;
+						this.lblResultado.Text = "=";
+						// 
 						// Form1
 						// 
 						this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 						this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 						this.ClientSize = new System.Drawing.Size(478, 466);
+						this.Controls.Add(this.lblResultado);
 						this.Controls.Add(this.btnCalcular);
 						this.Controls.Add(this.txtNumero2);
 						this.Controls.Add(this.txtNumero1);
 						this.Name = "Form1";
+						this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 						this.Text = "Form1";
 						this.ResumeLayout(false);
 						this.PerformLayout();
@@ -77,6 +89,7 @@
 				private System.Windows.Forms.TextBox txtNumero1;
 				private System.Windows.Forms.TextBox txtNumero2;
 				private System.Windows.Forms.Button btnCalcular;
+				private System.Windows.Forms.Label lblResultado;
 		}
 }
 
