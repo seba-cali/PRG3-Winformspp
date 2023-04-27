@@ -19,7 +19,7 @@ namespace ej_ado_net_pkm
 
 						try 
 						{
-								conexion.ConnectionString = ".\\LABO3; database=POKEDEX_DB; integrated security=false; user=sa; password=123xx;";
+								conexion.ConnectionString = "server=localhost\\LABO3; database=POKEDEX_DB; integrated security=false; user=sa; password=123xx;";
 								comando.CommandType = System.Data.CommandType.Text;
 								comando.CommandText	= "SELECT Numero, Nombre, Descripcion FROM POKEMONS";
 								comando.Connection = conexion;

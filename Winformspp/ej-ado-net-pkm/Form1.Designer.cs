@@ -39,14 +39,14 @@
 						this.dgvPokemons.Name = "dgvPokemons";
 						this.dgvPokemons.RowHeadersWidth = 51;
 						this.dgvPokemons.RowTemplate.Height = 24;
-						this.dgvPokemons.Size = new System.Drawing.Size(448, 150);
+						this.dgvPokemons.Size = new System.Drawing.Size(711, 220);
 						this.dgvPokemons.TabIndex = 0;
 						// 
 						// frmPokemons
 						// 
 						this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 						this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-						this.ClientSize = new System.Drawing.Size(521, 492);
+						this.ClientSize = new System.Drawing.Size(823, 492);
 						this.Controls.Add(this.dgvPokemons);
 						this.Name = "frmPokemons";
 						this.Text = "Form1";

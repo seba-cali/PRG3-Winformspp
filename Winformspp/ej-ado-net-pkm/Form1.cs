@@ -22,5 +22,6 @@ namespace ej_ado_net_pkm
 						PokemonNegocio	negocio = new PokemonNegocio();
 						dgvPokemons.DataSource = negocio.listar();
 				}
+
 		}
 }
