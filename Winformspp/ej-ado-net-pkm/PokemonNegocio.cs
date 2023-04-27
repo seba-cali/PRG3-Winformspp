@@ -21,7 +21,7 @@ namespace ej_ado_net_pkm
 						{
 								conexion.ConnectionString = "server=localhost\\LABO3; database=POKEDEX_DB; integrated security=false; user=sa; password=123xx;";
 								comando.CommandType = System.Data.CommandType.Text;
-								comando.CommandText	= "SELECT Numero, Nombre, Descripcion FROM POKEMONS";
+								comando.CommandText	= "SELECT Numero, Nombre, Descripcion, UrlImagen FROM POKEMONS";
 								comando.Connection = conexion;
 
 								conexion.Open();
@@ -33,6 +33,7 @@ namespace ej_ado_net_pkm
 										aux.Numero = lector.GetInt32(0);
 										aux.Nombre = (string)lector["Nombre"];
 										aux.Descripcion = (string)lector["Descripcion"];
+										aux.UrlImagen = (string)lector["UrlImagen"];
 
 										lista.Add(aux);
 								}

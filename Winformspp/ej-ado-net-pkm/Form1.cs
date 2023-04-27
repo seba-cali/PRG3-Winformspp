@@ -12,6 +12,8 @@ namespace ej_ado_net_pkm
 {
 		public partial class frmPokemons : Form
 		{
+
+				private List<Pokemon> listaPokemon;
 				public frmPokemons()
 				{
 						InitializeComponent();
@@ -20,8 +22,27 @@ namespace ej_ado_net_pkm
 				private void frmPokemons_Load(object sender, EventArgs e)
 				{
 						PokemonNegocio	negocio = new PokemonNegocio();
-						dgvPokemons.DataSource = negocio.listar();
+						listaPokemon = negocio.listar();
+						dgvPokemons.DataSource = listaPokemon;
+					 cargarImagen(listaPokemon[0].UrlImagen);
 				}
 
+				private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
+				{
+						Pokemon seleccionado=(Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+						cargarImagen(seleccionado.UrlImagen);
+				}
+
+				private void cargarImagen(string imagen)
+				{
+						try
+						{
+								pbxPokemon.Load(imagen);
+						}
+						catch (Exception ex)
+						{
+								pbxPokemon.Load("https://png.pngtree.com/png-vector/20210604/ourmid/pngtree-gray-network-placeholder-png-image_3416659.jpg");
+						}
+				}
 		}
 }
