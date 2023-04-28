@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using dominio;
+using negocio;
 
 namespace ej_ado_net_pkm
 {
@@ -30,7 +32,7 @@ namespace ej_ado_net_pkm
 
 				private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
 				{
-						Pokemon seleccionado=(Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+						Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
 						cargarImagen(seleccionado.UrlImagen);
 
 				}

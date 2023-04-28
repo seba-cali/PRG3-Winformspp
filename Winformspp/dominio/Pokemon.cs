@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using dominio;
 
-namespace ej_ado_net_pkm
+namespace dominio
 {
-		internal class Pokemon
+		public class Pokemon
 		{
 				public int Numero { get; set; }
 				public string Nombre { get; set; }
