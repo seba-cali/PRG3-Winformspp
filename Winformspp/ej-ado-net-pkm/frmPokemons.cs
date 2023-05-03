@@ -48,5 +48,11 @@ namespace ej_ado_net_pkm
 								pbxPokemon.Load("https://png.pngtree.com/png-vector/20210604/ourmid/pngtree-gray-network-placeholder-png-image_3416659.jpg");
 						}
 				}
+
+				private void btnAgregar_Click(object sender, EventArgs e)
+				{
+						frmAltaPokemon alta =	new frmAltaPokemon();
+						alta.ShowDialog();
+				}
 		}
 }
