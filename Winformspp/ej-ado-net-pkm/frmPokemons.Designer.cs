@@ -38,17 +38,20 @@
 						// dgvPokemons
 						// 
 						this.dgvPokemons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+						this.dgvPokemons.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
 						this.dgvPokemons.Location = new System.Drawing.Point(12, 12);
+						this.dgvPokemons.MultiSelect = false;
 						this.dgvPokemons.Name = "dgvPokemons";
 						this.dgvPokemons.RowHeadersWidth = 51;
 						this.dgvPokemons.RowTemplate.Height = 24;
-						this.dgvPokemons.Size = new System.Drawing.Size(723, 220);
+						this.dgvPokemons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+						this.dgvPokemons.Size = new System.Drawing.Size(633, 220);
 						this.dgvPokemons.TabIndex = 0;
 						this.dgvPokemons.SelectionChanged += new System.EventHandler(this.dgvPokemons_SelectionChanged);
 						// 
 						// pbxPokemon
 						// 
-						this.pbxPokemon.Location = new System.Drawing.Point(741, 12);
+						this.pbxPokemon.Location = new System.Drawing.Point(651, 12);
 						this.pbxPokemon.Name = "pbxPokemon";
 						this.pbxPokemon.Size = new System.Drawing.Size(270, 220);
 						this.pbxPokemon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -69,7 +72,7 @@
 						// 
 						this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 						this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-						this.ClientSize = new System.Drawing.Size(1023, 294);
+						this.ClientSize = new System.Drawing.Size(929, 294);
 						this.Controls.Add(this.btnAgregar);
 						this.Controls.Add(this.pbxPokemon);
 						this.Controls.Add(this.dgvPokemons);

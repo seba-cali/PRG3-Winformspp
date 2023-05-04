@@ -34,7 +34,11 @@ namespace negocio
 										aux.Numero = lector.GetInt32(0);
 										aux.Nombre = (string)lector["Nombre"];
 										aux.Descripcion = (string)lector["Descripcion"];
-										aux.UrlImagen = (string)lector["UrlImagen"];
+										//VALIDAR SI HAY NULLS EN LA BASE DE DATOS//2 formas//
+										//if (!(lector.IsDBNull(lector.GetOrdinal("UrlImagen"))))
+										//aux.UrlImagen = (string)lector["UrlImagen"];
+										if (!(lector["UrlImagen"] is DBNull))
+												aux.UrlImagen = (string)lector["UrlImagen"];
 										aux.Tipo = new Elemento();
 										aux.Tipo.Descripcion = (string)lector["Tipo"];
 										aux.Debilidad = new Elemento();
@@ -58,7 +62,11 @@ namespace negocio
 						  
 						try
 						{
-								datos.setearConsulta("INSERT INTO POKEMONS(Numero, Nombre, Descripcion, Activo) values("+nuevo.Numero + ", '" +nuevo.Nombre+ "', '" +nuevo.Descripcion+ "', 1)");
+								datos.setearConsulta("INSERT INTO POKEMONS(Numero, Nombre, Descripcion, Activo, IdTipo, IdDebilidad, UrlImagen) values("+nuevo.Numero + ", '" +nuevo.Nombre+ "', '" +nuevo.Descripcion+ "', 1,  @idTipo, @idDebilidad, @urlImagen)");
+								datos.setearParametro("@idTipo", nuevo.Tipo.Id);
+								datos.setearParametro("@idDebilidad", nuevo.Debilidad.Id);
+								datos.setearParametro("@urlImagen",nuevo.UrlImagen);
+
 								datos.ejecutarAccion();
 						}
 						catch (Exception ex)
