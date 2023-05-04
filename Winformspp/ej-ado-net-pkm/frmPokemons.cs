@@ -70,5 +70,16 @@ namespace ej_ado_net_pkm
 						//actualizar carga
 						cargar();
 				}
+
+				//MODIFICAR//
+				private void btnModificar_Click(object sender, EventArgs e)
+				{
+						Pokemon seleccionado;
+						seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+						frmAltaPokemon modificar = new frmAltaPokemon(seleccionado);
+						modificar.ShowDialog();
+						//actualizar carga
+						cargar();
+				}
 		}
 }

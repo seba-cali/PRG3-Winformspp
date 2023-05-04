@@ -22,7 +22,7 @@ namespace negocio
 						{
 								conexion.ConnectionString = "server=localhost\\LABO3; database=POKEDEX_DB; integrated security=false; user=sa; password=123xx;";
 								comando.CommandType = System.Data.CommandType.Text;
-								comando.CommandText = "SELECT Numero, Nombre, p.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE e.Id = P.IdTipo and D.Id = P.IdDebilidad";
+								comando.CommandText = "SELECT Numero, Nombre, p.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE e.Id = P.IdTipo and D.Id = P.IdDebilidad";
 								comando.Connection = conexion;
 
 								conexion.Open();
@@ -39,9 +39,12 @@ namespace negocio
 										//aux.UrlImagen = (string)lector["UrlImagen"];
 										if (!(lector["UrlImagen"] is DBNull))
 												aux.UrlImagen = (string)lector["UrlImagen"];
+
 										aux.Tipo = new Elemento();
+										aux.Tipo.Id = (int)lector["IdTipo"];
 										aux.Tipo.Descripcion = (string)lector["Tipo"];
 										aux.Debilidad = new Elemento();
+										aux.Debilidad.Id = (int)lector["IdDebilidad"];
 										aux.Debilidad.Descripcion = (string)lector["Debilidad"];
 
 										lista.Add(aux);
@@ -80,9 +83,6 @@ namespace negocio
 						}
 				}
 
-				public void modiciar(Pokemon modificiar)
-				{
-				}
 		}
 }
 
