@@ -35,21 +35,34 @@ namespace ej_ado_net_pkm
 				private void btnAceptar_Click(object sender, EventArgs e)
 				{
 						//todo: Continuar video Modificar Pokemon @ 19 min
-						Pokemon	poke = new Pokemon();
+						//Pokemon	poke = new Pokemon();
 						PokemonNegocio negocio = new PokemonNegocio();
 
 						try
-						{
-								poke.Numero = int.Parse(txtNumero.Text);
-								poke.Nombre	= txtNombre.Text;
-								poke.Descripcion = txtDescripcion.Text;
+						{//lo agrego aca para saber si es nuevo pokemon. Si no esta nulo, se trigerea el @modificar@
+								if(pokemon == null)
+										pokemon = new Pokemon();
+								pokemon.Numero = int.Parse(txtNumero.Text);
+								pokemon.Nombre	= txtNombre.Text;
+								pokemon.Descripcion = txtDescripcion.Text;
 								//mapeo la imagen
-								poke.UrlImagen	= txtImagen.Text;
-								poke.Tipo = (Elemento)cboTipo.SelectedItem;
-								poke.Debilidad = (Elemento)cboDebilidad.SelectedItem;
+								pokemon.UrlImagen	= txtImagen.Text;
+								pokemon.Tipo = (Elemento)cboTipo.SelectedItem;
+								pokemon.Debilidad = (Elemento)cboDebilidad.SelectedItem;
 
-								negocio.agregar(poke);
-								MessageBox.Show("Agregado exitosamente");
+								if (pokemon.Id != 0)
+								{
+										negocio.modificar(pokemon);
+										MessageBox.Show("Modificado exitosamente");
+
+								}
+								else
+								{
+										negocio.agregar(pokemon);
+										MessageBox.Show("Agregado exitosamente");
+								}
+
+
 								Close();
 
 						}

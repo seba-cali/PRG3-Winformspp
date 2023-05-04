@@ -10,6 +10,8 @@ namespace dominio
 {
 		public class Pokemon
 		{
+				public int Id { get; set; } //propiedad autoincremental
+
 				//ANOTATIONS, validaciones formato de fechas, dar nombre a columnas.
 				[DisplayName("Número")]
 				public int Numero { get; set; }

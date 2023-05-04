@@ -22,7 +22,7 @@ namespace negocio
 						{
 								conexion.ConnectionString = "server=localhost\\LABO3; database=POKEDEX_DB; integrated security=false; user=sa; password=123xx;";
 								comando.CommandType = System.Data.CommandType.Text;
-								comando.CommandText = "SELECT Numero, Nombre, p.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE e.Id = P.IdTipo and D.Id = P.IdDebilidad";
+								comando.CommandText = "SELECT Numero, Nombre, p.Descripcion, UrlImagen, E.Descripcion Tipo, D.Descripcion Debilidad, P.IdTipo, P.IdDebilidad, P.Id FROM POKEMONS P, ELEMENTOS E, ELEMENTOS D WHERE e.Id = P.IdTipo and D.Id = P.IdDebilidad";
 								comando.Connection = conexion;
 
 								conexion.Open();
@@ -31,6 +31,7 @@ namespace negocio
 								while (lector.Read())
 								{
 										Pokemon aux = new Pokemon();
+										aux.Id = (int)lector["Id"];
 										aux.Numero = lector.GetInt32(0);
 										aux.Nombre = (string)lector["Nombre"];
 										aux.Descripcion = (string)lector["Descripcion"];
@@ -75,6 +76,30 @@ namespace negocio
 						catch (Exception ex)
 						{
 
+								throw ex;
+						}
+						finally
+						{
+								datos.cerrarConexion();
+						}
+				}
+				public void modificar( Pokemon poke)
+				{
+						AccesoDatos datos = new AccesoDatos();
+						try
+						{
+								datos.setearConsulta("UPDATE POKEMONS SET Numero = @numero, Nombre = @nombre, Descripcion = @descripcion, UrlImagen = @imagen, IdTipo = @idTipo, IdDebilidad = @idDebilidad WHERE Id = @id");
+								datos.setearParametro("@numero", poke.Numero);
+								datos.setearParametro("@nombre", poke.Nombre);
+								datos.setearParametro("@descripcion", poke.Descripcion);
+								datos.setearParametro("@imagen", poke.UrlImagen);
+								datos.setearParametro("@idTipo", poke.Tipo.Id);
+								datos.setearParametro("@idDebilidad", poke.Debilidad.Id);
+								datos.setearParametro("@ID", poke.Id);
+								datos.ejecutarAccion();
+						}
+						catch (Exception ex)
+						{
 								throw ex;
 						}
 						finally
