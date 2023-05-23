@@ -1,2 +1,2 @@
-﻿select * from POKEMONS
-DELETE FROM POKEMONS where id=12
+﻿select * from pokemons
+update pokemons set Activo = 1

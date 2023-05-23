@@ -24,6 +24,9 @@ namespace ej_ado_net_pkm
 		private void frmPokemons_Load(object sender, EventArgs e)
 		{
 			cargar();
+			cboCampo.Items.Add("Numero");
+			cboCampo.Items.Add("Nombre");
+			cboCampo.Items.Add("Descripción");
 		}
 
 		private void cargar()
@@ -33,8 +36,7 @@ namespace ej_ado_net_pkm
 			{
 				listaPokemon = negocio.listar();
 				dgvPokemons.DataSource = listaPokemon;
-				dgvPokemons.Columns["UrlImagen"].Visible = false;//oculta la url de la imagen
-				dgvPokemons.Columns["Id"].Visible = false;//oculta la url de la imagen
+				ocultarColumnas();
 				cargarImagen(listaPokemon[0].UrlImagen);
 
 			}
@@ -45,10 +47,20 @@ namespace ej_ado_net_pkm
 			}
 		}
 
+		private void ocultarColumnas()
+		{
+			dgvPokemons.Columns["UrlImagen"].Visible = false;//oculta la url de la imagen
+			dgvPokemons.Columns["Id"].Visible = false;//oculta la url de la imagen
+		}
+
 		private void dgvPokemons_SelectionChanged(object sender, EventArgs e)
 		{
-			Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-			cargarImagen(seleccionado.UrlImagen);
+
+			if (dgvPokemons.CurrentRow != null)
+			{
+				Pokemon seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
+				cargarImagen(seleccionado.UrlImagen);
+			}
 
 		}
 
@@ -85,16 +97,32 @@ namespace ej_ado_net_pkm
 		//ELMINIACION FISICA DE UN POKEMON - INICIO//
 		private void btnEliminarFisico_Click(object sender, EventArgs e)
 		{
+			eliminar();
+		}
+		//ELMINIACION FISICA DE UN POKEMON - FIN//
+
+		private void btnEliminarLogico_Click(object sender, EventArgs e)
+		{
+			eliminar(true);
+		}
+
+		private void eliminar(bool logico = false) // hace que este valor sea opcional, por defecto toma false
+		{
 			PokemonNegocio negocio = new PokemonNegocio();
 			Pokemon seleccionado;
-			
+
 			try
 			{
 				DialogResult respuesta = MessageBox.Show("Seguro que desea eliminar el Pokemon?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 				if (respuesta == DialogResult.Yes)
 				{
 					seleccionado = (Pokemon)dgvPokemons.CurrentRow.DataBoundItem;
-					negocio.eliminar(seleccionado.Id);
+
+					if (logico)
+						negocio.eliminarLogico(seleccionado.Id);
+					else
+						negocio.eliminar(seleccionado.Id);
+
 					cargar();
 				}
 			}
@@ -104,6 +132,72 @@ namespace ej_ado_net_pkm
 				MessageBox.Show(ex.ToString());
 			}
 		}
-		//ELMINIACION FISICA DE UN POKEMON - FIN//
+
+		//Filtro rapido que trabaja sobre lista, pero no en DB
+		private void btnFiltro_Click(object sender, EventArgs e)
+		{
+			PokemonNegocio negocio = new PokemonNegocio();
+			try
+			{
+			string campo = cboCampo.SelectedItem.ToString();
+			string criterio = cboCriterio.SelectedItem.ToString();
+			string filtro = txtFiltroAvanzado.Text;
+				dgvPokemons.DataSource = negocio.filtrar(campo, criterio, filtro);
+
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.ToString());
+				
+			}
+
+		}
+
+		private void txtFiltro_KeyPress(object sender, KeyPressEventArgs e)
+		{
+		}
+
+		private void txtFiltro_TextChanged(object sender, EventArgs e)
+		{
+			List<Pokemon> listaFiltrada;
+			string filtro = txtFiltro.Text;
+
+			if (filtro != "")
+			{
+				listaFiltrada = listaPokemon.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Tipo.Descripcion.ToUpper().Contains(filtro.ToUpper()));// lambda expresion
+
+			}
+			else
+			{
+				listaFiltrada = listaPokemon;
+			}
+			dgvPokemons.DataSource = null;//limpieza xq no lo puede pisar
+			dgvPokemons.DataSource = listaFiltrada;
+			ocultarColumnas();
+		}
+
+		private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			
+		}
+
+		private void cboCampo_SelectedIndexChanged_1(object sender, EventArgs e)
+		{
+			string opcion = cboCampo.SelectedItem.ToString();
+			if (opcion == "Numero")
+			{
+				cboCriterio.Items.Clear();
+				cboCriterio.Items.Add("Mayor a");
+				cboCriterio.Items.Add("Menor a");
+				cboCriterio.Items.Add("Igual a");
+			}
+			else
+			{
+				cboCriterio.Items.Clear();
+				cboCriterio.Items.Add("Comienza con");
+				cboCriterio.Items.Add("Termina con");
+				cboCriterio.Items.Add("Contiene");
+			}
+		}
 	}
 }
