@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using dominio;
 using negocio;
+using System.IO;
+using System.Configuration;
 
 namespace ej_ado_net_pkm
 {
 		public partial class frmAltaPokemon : Form
 		{
 				private Pokemon pokemon = null;
+				private OpenFileDialog archivo = null;
 				public frmAltaPokemon()
 				{
 						InitializeComponent();
@@ -62,6 +65,11 @@ namespace ej_ado_net_pkm
 										MessageBox.Show("Agregado exitosamente");
 								}
 
+								//Guardo imagen si la levanto localmente
+								if (archivo != null && !(txtImagen.Text.ToUpper().Contains("HTTP")))
+								{
+									File.Copy(archivo.FileName, ConfigurationSettings.AppSettings["images-folder"] +				archivo.SafeFileName);
+								}
 
 								Close();
 
@@ -124,5 +132,20 @@ namespace ej_ado_net_pkm
 								pbxPokemon.Load("https://png.pngtree.com/png-vector/20210604/ourmid/pngtree-gray-network-placeholder-png-image_3416659.jpg");
 						}
 				}
+
+		private void btnAgregarImagen_Click(object sender, EventArgs e)
+		{
+			archivo = new OpenFileDialog();
+			archivo.Filter = "Archivo de imagen|*.jpg;*.png;*.gif;*.bmp";
+			if(archivo.ShowDialog() == DialogResult.OK)
+			{
+				txtImagen.Text = archivo.FileName;
+				cargarImagen(archivo.FileName);//devuelve el nombre del archivo y su ruta
+
+				//guardo la imagen. necesito el using System.IO para usar copy;
+				//en framework 4.8 se usa confoguration MANAGER
+				//File.Copy(archivo.FileName, ConfigurationSettings.AppSettings["images-folder"] + archivo.SafeFileName);
+			}
 		}
+	}
 }
