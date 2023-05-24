@@ -156,7 +156,7 @@ namespace ej_ado_net_pkm
 				if (!(soloNumeros(txtFiltroAvanzado.Text)))
 				{
 					MessageBox.Show("Ingrese solo numeros para campos numericos");
-					return true;
+					return true; 
 				}
 			}
 			return false;
